@@ -1,1 +1,46 @@
+version: '3.9'
 
+networks:
+  dns_net:
+    driver: bridge
+    ipam:
+        config:
+        - subnet: 172.23.0.0/16
+
+services:
+  pihole:
+    container_name: pihole
+    hostname: pihole
+    image: pihole/pihole:latest # remember to change this if you're using rpi
+    networks:
+      dns_net:
+        ipv4_address: 172.23.0.7
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "85:80/tcp"
+    #- "443:443/tcp"
+    environment:
+      TZ: 'America/Virginia'
+      WEBPASSWORD: 'brotheridk'
+      PIHOLE_DNS_: '172.23.0.8#5053'
+      FTLCONF_LOCAL_NETS: "108.31.176.204/32"
+      DNSMASQ_LISTENING: all
+    volumes:
+      - './etc-pihole:/etc/pihole'
+      - './etc-dnsmasq.d:/etc/dnsmasq.d'
+    restart: unless-stopped
+  unbound:
+    container_name: unbound
+    image: mvance/unbound:latest # remember to change this if you're using rpi
+    networks:
+      dns_net:
+        ipv4_address: 172.23.0.8
+    volumes:
+      - ./unbound/unbound.conf:/opt/unbound/etc/unbound/unbound.conf:ro
+    ports:
+      - "5053:53/tcp"
+      - "5053:53/udp"
+    healthcheck:
+      test: ["NONE"]
+    restart: unless-stopped
