@@ -1,6 +1,7 @@
 # 🔐 AWS-Hosted DNS Stack with Pi-hole + Unbound
 
-    A secure, recursive DNS filtering stack hosted on AWS EC2 using Docker Compose. Features include ad/tracker blocking, DNSSEC, DNS-over-TLS, DNS-over-HTTPS (DoH), and strict network controls. Built for speed, privacy, and resiliency.
+    A secure, recursive DNS filtering stack hosted on AWS EC2 using Docker Compose. Features include ad/tracker blocking, DNSSEC, 
+    DNS-over-TLS, DNS-over-HTTPS (DoH), and strict network controls. Built for speed, privacy, and resiliency.
 
 ## 🗂️ Features
 
