@@ -44,9 +44,11 @@ cd aws-dns-stack
     Associate Elastic IP
 
     Open ports 22, 53 (TCP+UDP), and optionally 443
-2. Install Docker and Docker Compose 
+2. Install Docker and Docker Compose
+
    sudo apt update && sudo apt install -y docker.io docker-compose
-3.File Structure
+
+3. File Structure
 .
 ├── docker-compose.yml
 ├── unbound/
@@ -56,6 +58,20 @@ cd aws-dns-stack
 │       └── doh.key
 ├── unboundforward-records.conf (optional)
 └── pihole-data/
+--
+## 🧪 Test Commands
 
+Check Unbound:
+
+docker exec unbound drill @127.0.0.1 -p 53 NS .
+
+Check Pi-hole:
+
+docker exec pihole dig @172.23.0.8 -p 53 google.com +short
+
+Check DoH:
+
+curl -H 'accept: application/dns-json' \
+  'https://your.domain.com/dns-query?name=example.com&type=A'
 
 
