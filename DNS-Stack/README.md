@@ -59,8 +59,7 @@ cd aws-dns-stack
 ├── unboundforward-records.conf (optional)
 └── pihole-data/
 --
-## 🧪 Test Commands
-
+🧪 Test Commands
 Check Unbound:
 
 docker exec unbound drill @127.0.0.1 -p 53 NS .
